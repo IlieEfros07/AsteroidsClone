@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://c8kvl7f1fp4pt"]
+
+[ext_resource type="Texture2D" uid="uid://dlg6n3w4ncmfe" path="res://Assets/sprites/spaceship_normal.png" id="1_kelma"]
+[ext_resource type="Script" uid="uid://dqxjo3ek5j1x0" path="res://Scene/player.gd" id="1_y8w33"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y8w33"]
+size = Vector2(25, 16)
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_y8w33")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 1.5708
+texture = ExtResource("1_kelma")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1.5, 0)
+shape = SubResource("RectangleShape2D_y8w33")
