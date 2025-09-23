@@ -1,18 +1,63 @@
-[gd_scene load_steps=4 format=3 uid="uid://c8kvl7f1fp4pt"]
+[gd_scene load_steps=8 format=3 uid="uid://c8kvl7f1fp4pt"]
 
-[ext_resource type="Texture2D" uid="uid://dlg6n3w4ncmfe" path="res://Assets/sprites/spaceship_normal.png" id="1_kelma"]
-[ext_resource type="Script" uid="uid://dqxjo3ek5j1x0" path="res://Scene/player.gd" id="1_y8w33"]
+[ext_resource type="Script" uid="uid://dqxjo3ek5j1x0" path="res://Scripts/player.gd" id="1_y8w33"]
+[ext_resource type="Texture2D" uid="uid://ci5wrh0qh6b4r" path="res://Assets/sprites/Ship.png" id="2_y8w33"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y8w33"]
-size = Vector2(25, 16)
+size = Vector2(16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xa75v"]
+atlas = ExtResource("2_y8w33")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_58ae2"]
+atlas = ExtResource("2_y8w33")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ivevv"]
+atlas = ExtResource("2_y8w33")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r6jsd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xa75v")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_58ae2")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ivevv")
+}],
+"loop": true,
+"name": &"move_more",
+"speed": 5.0
+}]
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_y8w33")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-rotation = 1.5708
-texture = ExtResource("1_kelma")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1.5, 0)
+position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_y8w33")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_r6jsd")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="Muzzle" type="Marker2D" parent="."]
+position = Vector2(5.68434e-14, -14)
+scale = Vector2(-0.892509, 0.301186)
+gizmo_extents = 5.0
