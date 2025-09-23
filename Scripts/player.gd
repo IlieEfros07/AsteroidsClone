@@ -10,7 +10,7 @@ const FIRE_RATE = 0.2
 
 var canFire= true
 var fireTimer = 0.0
-
+var health = 5
 
 func _physics_process(delta: float) -> void:
 
@@ -27,6 +27,13 @@ func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_pressed("shoot") and canFire:
 		_shoot()
+	
+	if Input.is_action_just_pressed("down") or Input.is_action_just_pressed("up") or Input.is_action_just_pressed("right") or Input.is_action_just_pressed("left"):
+		animatedSprite2d.play("move")
+	elif Input.is_action_pressed("down") or Input.is_action_pressed("up") or Input.is_action_pressed("right") or Input.is_action_pressed("left"):
+		animatedSprite2d.play("move_more") 
+	else:
+		animatedSprite2d.play("idle")
 		
 	if not canFire:
 		fireTimer += delta
@@ -48,5 +55,16 @@ func _shoot():
 	var mouseDirection = (get_global_mouse_position() - global_position).angle()
 	bullet.rotation = mouseDirection
 	get_parent().add_child(bullet)
+
+func take_damage(damage:int):
+	health -= damage
+	modulate = Color.RED
+	await get_tree().create_timer(0.1).timeout
+	modulate = Color.WHITE
+	if health <= 0:
+		die()
+func die():
+	get_tree().reaload_curent_scene()
+	
 
 	

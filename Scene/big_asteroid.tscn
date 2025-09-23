@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://dpwnlkqrmasvk"]
+
+[ext_resource type="Script" uid="uid://dk0lqg4f6xmbj" path="res://Scripts/big_asteroid.gd" id="1_rqfjh"]
+[ext_resource type="Texture2D" uid="uid://dvhpo6hklki5q" path="res://Assets/sprites/asteroids (1).png" id="1_x3uj5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rqfjh"]
+radius = 16.0312
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_67of6"]
+atlas = ExtResource("1_x3uj5")
+region = Rect2(0, 0, 42, 85)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4k2ng"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_67of6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="BigAsteroid" type="Area2D"]
+script = ExtResource("1_rqfjh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(3, 0)
+shape = SubResource("CircleShape2D_rqfjh")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_4k2ng")
