@@ -17,7 +17,6 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	position += direction * SPEED * delta
 	
-	rotation += rotation * delta
 	
 	var screenSize = get_viewport_rect().size
 	

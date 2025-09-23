@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cig2o8tv2dodr"]
+[gd_scene load_steps=6 format=3 uid="uid://cig2o8tv2dodr"]
 
 [ext_resource type="Texture2D" uid="uid://dvhpo6hklki5q" path="res://Assets/sprites/asteroids (1).png" id="1_dumfo"]
+[ext_resource type="Script" uid="uid://bjj81wtfuiu8m" path="res://Scripts/small_asteroid.gd" id="1_vf2tu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vf2tu"]
 radius = 14.0
@@ -21,6 +22,8 @@ animations = [{
 }]
 
 [node name="smallAsteroid" type="Area2D"]
+scale = Vector2(2, 2)
+script = ExtResource("1_vf2tu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-3, 0)

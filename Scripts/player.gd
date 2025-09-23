@@ -1,10 +1,13 @@
 extends CharacterBody2D
 
 
+
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 const BULLET = preload("res://Scene/bullet.tscn")
 const FIRE_RATE = 0.2
+
+@onready var screenSize = get_viewport_rect().size
 
 @onready var animatedSprite2d: AnimatedSprite2D = $AnimatedSprite2D
 
@@ -35,6 +38,8 @@ func _physics_process(delta: float) -> void:
 	else:
 		animatedSprite2d.play("idle")
 		
+	
+	
 	if not canFire:
 		fireTimer += delta
 		if fireTimer>= FIRE_RATE:
@@ -47,6 +52,15 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
 	move_and_slide()
+	var cam = get_viewport().get_camera_2d()
+	if cam:
+		var cam_pos = cam.global_position
+		var half_size = screenSize / 2
+		position.x = wrapf(position.x, cam_pos.x - half_size.x, cam_pos.x + half_size.x)
+		position.y = wrapf(position.y, cam_pos.y - half_size.y, cam_pos.y + half_size.y)
+	
+
+
 
 func _shoot():
 	canFire=false
@@ -65,6 +79,8 @@ func take_damage(damage:int):
 		die()
 func die():
 	get_tree().reaload_curent_scene()
+
+
 	
 
 	

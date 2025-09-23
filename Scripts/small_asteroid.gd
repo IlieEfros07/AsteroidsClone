@@ -1,9 +1,9 @@
 extends Area2D
-var SPEED = 150
+var SPEED = 200
 var rotaion = 0.5
 var helth = 3
 var direction = Vector2.ZERO
-const SMALL_ASTEROID = preload("res://Scene/small_asteroid.tscn")
+
 
 func _ready() -> void:
 	
@@ -17,7 +17,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	position += direction * SPEED * delta
 	
-	
+
 	
 	var screenSize = get_viewport_rect().size
 	
@@ -37,10 +37,6 @@ func take_damage(damage : int):
 		die()
 func die():
 	queue_free()
-	for i in range(2):
-		var new_asteroid = SMALL_ASTEROID.instantiate()
-		new_asteroid.position = position 
-		get_parent().add_child(new_asteroid)
 
 func _on_area_entered(area):
 	if area.is_in_group("bullet"):

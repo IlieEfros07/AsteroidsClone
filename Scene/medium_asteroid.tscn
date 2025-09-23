@@ -22,6 +22,7 @@ animations = [{
 radius = 15.0
 
 [node name="mediumAsteroid" type="Area2D"]
+scale = Vector2(3, 3)
 script = ExtResource("1_ew6vd")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
