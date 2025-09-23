@@ -1,7 +1,13 @@
 extends Node
 
+signal score_updated(score_value)
+signal health_updated(health)
+signal lose_game()
+
+var health = 5
 var spawnRate = 1.2
 var timeSinceLastSpawn = 0.0
+var scoreVal = 0
 
 var asteroidScenes = [
 	preload("res://Scene/big_asteroid.tscn"),
@@ -9,8 +15,12 @@ var asteroidScenes = [
 	preload("res://Scene/small_asteroid.tscn")
 ]
 
+
+
+
 func _ready() -> void:
 	randomize()
+	scoreVal=0
 
 func _process(delta: float) -> void:
 	timeSinceLastSpawn += delta
@@ -18,9 +28,22 @@ func _process(delta: float) -> void:
 		spawnAsteroid()
 		timeSinceLastSpawn = 0.0
 
+func add_score(score):
+	scoreVal+= score
+	score_updated.emit(scoreVal)
+	
+func update_health(health):
+	health_updated.emit(health)
+
+func lose():
+	scoreVal = 0
+	lose_game.emit()
+
 func spawnAsteroid():
 	var selectedAsteroid = asteroidScenes.pick_random()
 	var asteroid = selectedAsteroid.instantiate()
+	
+	
 	get_tree().current_scene.add_child(asteroid)
 
 	var viewportSize = get_viewport().size

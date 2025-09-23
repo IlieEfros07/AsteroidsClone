@@ -1,14 +1,19 @@
 extends Area2D
 var SPEED = 150
 var rotaion = 0.5
-var helth = 3
+var helth = 2
 var direction = Vector2.ZERO
+var scoreVal = 200
+var rotationSpeed = 0.0
+
 const SMALL_ASTEROID = preload("res://Scene/small_asteroid.tscn")
+
+@onready var screenSize = get_viewport_rect().size
 
 func _ready() -> void:
 	
 	direction = Vector2(randf()* 2 - 1 , randf() * 2 - 1).normalized()
-	rotation = randf_range(-2.0,2.0)
+	rotationSpeed = randf_range(-1.5,1.5)
 	
 	area_entered.connect(_on_area_entered)
 	body_entered.connect(_on_body_entered)
@@ -16,15 +21,15 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	position += direction * SPEED * delta
+	rotation += rotationSpeed * delta
 	
 	
-	
-	var screenSize = get_viewport_rect().size
-	
-	if position.x < 0: position.x = screenSize.x
-	if position.x > screenSize.x: position.x = 0
-	if position.y < 0: position.y = screenSize.y
-	if position.y > screenSize.y: position.y = 0
+	var cam = get_viewport().get_camera_2d()
+	if cam:
+		var cam_pos = cam.global_position
+		var half_size = screenSize / 2
+		position.x = wrapf(position.x, cam_pos.x - half_size.x, cam_pos.x + half_size.x)
+		position.y = wrapf(position.y, cam_pos.y - half_size.y, cam_pos.y + half_size.y)
 	
 
 
@@ -37,6 +42,9 @@ func take_damage(damage : int):
 		die()
 func die():
 	queue_free()
+	if GameManager:
+		GameManager.add_score(scoreVal)
+
 	for i in range(2):
 		var new_asteroid = SMALL_ASTEROID.instantiate()
 		new_asteroid.position = position 

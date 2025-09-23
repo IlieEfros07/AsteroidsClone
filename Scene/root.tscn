@@ -1,10 +1,52 @@
-[gd_scene load_steps=2 format=3 uid="uid://dq8lwo1wm8vuc"]
+[gd_scene load_steps=5 format=3 uid="uid://dq8lwo1wm8vuc"]
 
 [ext_resource type="PackedScene" uid="uid://c8kvl7f1fp4pt" path="res://Scene/player.tscn" id="1_0f46p"]
+[ext_resource type="Script" uid="uid://bkxg2alf74p3t" path="res://Scene/root.gd" id="1_2m03i"]
+[ext_resource type="FontFile" uid="uid://btujrl673mbct" path="res://Assets/fonts/PixelOperator8-Bold.ttf" id="2_eglco"]
+[ext_resource type="Texture2D" uid="uid://b674j0b7ctjgk" path="res://Assets/sprites/background.png" id="4_fpdt3"]
 
 [node name="ROOT" type="Node2D"]
+script = ExtResource("1_2m03i")
 
 [node name="Player" parent="." instance=ExtResource("1_0f46p")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2, 2)
+scale = Vector2(1.54189, 2.46023)
+zoom = Vector2(1.5, 1.5)
+
+[node name="Labels" type="Node2D" parent="."]
+
+[node name="Score" type="Label" parent="Labels"]
+unique_name_in_owner = true
+offset_left = -464.0
+offset_top = -297.0
+offset_right = -364.0
+offset_bottom = -274.0
+theme_override_fonts/font = ExtResource("2_eglco")
+theme_override_font_sizes/font_size = 16
+text = "Score: "
+
+[node name="Health" type="Label" parent="Labels"]
+offset_left = -461.0
+offset_top = -271.0
+offset_right = -335.0
+offset_bottom = -248.0
+theme_override_fonts/font = ExtResource("2_eglco")
+theme_override_font_sizes/font_size = 16
+text = "Health: 5"
+
+[node name="Lose" type="Label" parent="Labels"]
+visible = false
+offset_left = -129.0
+offset_top = -29.0
+offset_right = 123.0
+offset_bottom = 22.0
+theme_override_fonts/font = ExtResource("2_eglco")
+theme_override_font_sizes/font_size = 24
+text = "  You lost!
+High Score: "
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -3
+scale = Vector2(15, 15)
+texture = ExtResource("4_fpdt3")

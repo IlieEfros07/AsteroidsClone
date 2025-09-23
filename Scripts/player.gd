@@ -1,11 +1,10 @@
 extends CharacterBody2D
 
-
-
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 const BULLET = preload("res://Scene/bullet.tscn")
 const FIRE_RATE = 0.2
+
 
 @onready var screenSize = get_viewport_rect().size
 
@@ -14,6 +13,10 @@ const FIRE_RATE = 0.2
 var canFire= true
 var fireTimer = 0.0
 var health = 5
+var isDead = false
+
+func _ready() -> void:
+	add_to_group("player")
 
 func _physics_process(delta: float) -> void:
 
@@ -37,6 +40,9 @@ func _physics_process(delta: float) -> void:
 		animatedSprite2d.play("move_more") 
 	else:
 		animatedSprite2d.play("idle")
+	if isDead:
+		velocity = Vector2.ZERO
+		return
 		
 	
 	
@@ -72,13 +78,22 @@ func _shoot():
 
 func take_damage(damage:int):
 	health -= damage
-	modulate = Color.RED
+	modulate = Color.BLACK
+	if GameManager:
+		GameManager.update_health(health)
 	await get_tree().create_timer(0.1).timeout
 	modulate = Color.WHITE
 	if health <= 0:
 		die()
 func die():
-	get_tree().reaload_curent_scene()
+	if GameManager:
+		GameManager.lose()
+	isDead = true
+	await get_tree().create_timer(1.5).timeout
+	get_tree().reload_current_scene()
+
+	
+	
 
 
 	
