@@ -1,12 +1,15 @@
 extends Area2D
 var SPEED = 150
 var rotaion = 0.5
-var helth = 2
+var health = 2
 var direction = Vector2.ZERO
 var scoreVal = 200
 var rotationSpeed = 0.0
 
 const SMALL_ASTEROID = preload("res://Scene/small_asteroid.tscn")
+@onready var explode: AudioStreamPlayer2D = $AudioStreamPlayer2D
+@onready var hit: AudioStreamPlayer2D = $hit
+
 
 @onready var screenSize = get_viewport_rect().size
 
@@ -34,16 +37,24 @@ func _process(delta: float) -> void:
 
 
 func take_damage(damage : int):
-	helth -= damage
+	health -= damage
 	modulate = Color.BLACK
+	if health > 0:
+		hit.play()
+
 	await get_tree().create_timer(0.1).timeout
 	modulate = Color.WHITE
-	if helth <= 0 :
+	if health <= 0 :
 		die()
 func die():
-	queue_free()
+	var sfx = explode.duplicate()
+	get_tree().current_scene.add_child(sfx)
+	sfx.global_position = global_position
+	sfx.play()
+	
 	if GameManager:
 		GameManager.add_score(scoreVal)
+	queue_free()
 
 	for i in range(2):
 		var new_asteroid = SMALL_ASTEROID.instantiate()

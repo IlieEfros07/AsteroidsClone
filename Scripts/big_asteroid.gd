@@ -1,10 +1,12 @@
 extends Area2D
 var SPEED = 100
 var rotaion = 0.5
-var helth = 3
+var health = 3
 var direction = Vector2.ZERO
 var scoreVal=300
 var rotationSpeed = 0.0
+@onready var explode: AudioStreamPlayer2D = $AudioStreamPlayer2D
+@onready var hit: AudioStreamPlayer2D = $hit
 
 const MEDIUM_ASTEROID = preload("res://Scene/medium_asteroid.tscn")
 @onready var screenSize = get_viewport_rect().size
@@ -32,16 +34,24 @@ func _process(delta: float) -> void:
 
 
 func take_damage(damage : int):
-	helth -= damage
+	health -= damage
 	modulate = Color.BLACK
+	if health > 0:
+		hit.play()
 	await get_tree().create_timer(0.1).timeout
 	modulate = Color.WHITE
-	if helth <= 0 :
+	if health <= 0 :
 		die()
 func die():
-	queue_free()
+	
+	var sfx = explode.duplicate()
+	get_tree().current_scene.add_child(sfx)
+	sfx.global_position = global_position
+	sfx.play()
+	
 	if GameManager:
 		GameManager.add_score(scoreVal)
+	queue_free()
 
 	for i in range(2):
 		var new_asteroid = MEDIUM_ASTEROID.instantiate()

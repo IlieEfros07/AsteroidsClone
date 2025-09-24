@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://c8kvl7f1fp4pt"]
+[gd_scene load_steps=9 format=3 uid="uid://c8kvl7f1fp4pt"]
 
 [ext_resource type="Script" uid="uid://dqxjo3ek5j1x0" path="res://Scripts/player.gd" id="1_y8w33"]
 [ext_resource type="Texture2D" uid="uid://ci5wrh0qh6b4r" path="res://Assets/sprites/Ship.png" id="2_y8w33"]
+[ext_resource type="AudioStream" uid="uid://b7vfc4n8bxw42" path="res://Assets/soundFx/zap_c_07-82067.mp3" id="3_xa75v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y8w33"]
 size = Vector2(16, 24)
@@ -61,3 +62,6 @@ autoplay = "idle"
 position = Vector2(5.68434e-14, -14)
 scale = Vector2(-0.892509, 0.301186)
 gizmo_extents = 5.0
+
+[node name="Shoot" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_xa75v")

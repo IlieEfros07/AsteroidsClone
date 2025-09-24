@@ -5,7 +5,7 @@ signal health_updated(health)
 signal lose_game()
 
 var health = 5
-var spawnRate = 1.2
+var spawnRate = 1.5
 var timeSinceLastSpawn = 0.0
 var scoreVal = 0
 

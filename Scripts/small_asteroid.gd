@@ -7,6 +7,8 @@ var scoreVal = 100
 var rotationSpeed = 0.0
 
 @onready var screenSize = get_viewport_rect().size
+@onready var explode: AudioStreamPlayer2D = $AudioStreamPlayer2D
+@onready var hit: AudioStreamPlayer2D = $hit
 
 
 func _ready() -> void:
@@ -41,9 +43,15 @@ func take_damage(damage : int):
 	if helth <= 0 :
 		die()
 func die():
+	var sfx = explode.duplicate()
+	get_tree().current_scene.add_child(sfx)
+	sfx.global_position = global_position
+	sfx.play()
+	
 	if GameManager:
 		GameManager.add_score(scoreVal)
 	queue_free()
+	
 	
 
 func _on_area_entered(area):

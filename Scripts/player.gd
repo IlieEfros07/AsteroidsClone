@@ -4,6 +4,7 @@ const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 const BULLET = preload("res://Scene/bullet.tscn")
 const FIRE_RATE = 0.2
+@onready var shoot: AudioStreamPlayer2D = $Shoot
 
 
 @onready var screenSize = get_viewport_rect().size
@@ -75,6 +76,7 @@ func _shoot():
 	var mouseDirection = (get_global_mouse_position() - global_position).angle()
 	bullet.rotation = mouseDirection
 	get_parent().add_child(bullet)
+	shoot.play()
 
 func take_damage(damage:int):
 	health -= damage
@@ -89,7 +91,7 @@ func die():
 	if GameManager:
 		GameManager.lose()
 	isDead = true
-	await get_tree().create_timer(1.5).timeout
+	await get_tree().create_timer(2.0).timeout
 	get_tree().reload_current_scene()
 
 	

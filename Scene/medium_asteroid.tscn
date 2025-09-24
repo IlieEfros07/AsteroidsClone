@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://x20oelrkwehw"]
+[gd_scene load_steps=8 format=3 uid="uid://x20oelrkwehw"]
 
 [ext_resource type="Script" uid="uid://qry4im2diijh" path="res://Scripts/medium_asteroid.gd" id="1_ew6vd"]
 [ext_resource type="Texture2D" uid="uid://dvhpo6hklki5q" path="res://Assets/sprites/asteroids (1).png" id="1_sgqly"]
+[ext_resource type="AudioStream" uid="uid://cty643rtyur8f" path="res://Assets/soundFx/086113_8-bit-cannonwav-40194.mp3" id="3_s11jn"]
+[ext_resource type="AudioStream" uid="uid://do3cy8ie71ny3" path="res://Assets/soundFx/8-bit-explosion-10-340462.mp3" id="4_u44n4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ew6vd"]
 atlas = ExtResource("1_sgqly")
@@ -31,3 +33,9 @@ sprite_frames = SubResource("SpriteFrames_s11jn")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, 0)
 shape = SubResource("CircleShape2D_u44n4")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_s11jn")
+
+[node name="hit" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_u44n4")

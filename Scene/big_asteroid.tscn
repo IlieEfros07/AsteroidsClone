@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dpwnlkqrmasvk"]
+[gd_scene load_steps=8 format=3 uid="uid://dpwnlkqrmasvk"]
 
 [ext_resource type="Script" uid="uid://dk0lqg4f6xmbj" path="res://Scripts/big_asteroid.gd" id="1_rqfjh"]
 [ext_resource type="Texture2D" uid="uid://dvhpo6hklki5q" path="res://Assets/sprites/asteroids (1).png" id="1_x3uj5"]
+[ext_resource type="AudioStream" uid="uid://cty643rtyur8f" path="res://Assets/soundFx/086113_8-bit-cannonwav-40194.mp3" id="3_67of6"]
+[ext_resource type="AudioStream" uid="uid://do3cy8ie71ny3" path="res://Assets/soundFx/8-bit-explosion-10-340462.mp3" id="4_4k2ng"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rqfjh"]
 radius = 16.0312
@@ -31,3 +33,9 @@ shape = SubResource("CircleShape2D_rqfjh")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_4k2ng")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_67of6")
+
+[node name="hit" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_4k2ng")
