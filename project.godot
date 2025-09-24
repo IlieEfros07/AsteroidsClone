@@ -13,7 +13,6 @@ config_version=5
 config/name="Asteroids Clone"
 run/main_scene="uid://dq8lwo1wm8vuc"
 config/features=PackedStringArray("4.4", "Forward Plus")
-config/icon="res://icon.svg"
 
 [autoload]
 
